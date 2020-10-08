@@ -22,6 +22,5 @@ jobs:
         java-version: 14.0.1
     - name: Run Tests
       run: mvn -B clean package -DskipTests    
-    - name: Maven Verify
-      run: mvn -B clean verify
+
   
