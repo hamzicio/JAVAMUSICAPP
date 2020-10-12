@@ -1,7 +1,6 @@
 package com.employeeportal.demo.user.dto;
 
 
-import com.employeeportal.demo.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,7 @@ import org.springframework.hateoas.RepresentationModel;
 @AllArgsConstructor
 public class UserResponseDTO extends RepresentationModel<UserResponseDTO> {
     private String name;
+    private String username;
     private String address;
     private String email;
 }

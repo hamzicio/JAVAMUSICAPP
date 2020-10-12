@@ -29,7 +29,7 @@ public class UserService {
 
     public UserResponseDTO addUser(AddUserDTO addUserDTO)  {
 
-            User userExists= userRepository.getEmployeeByUsername(addUserDTO.getUsername());
+            User userExists= userRepository.getUserByUsername(addUserDTO.getUsername());
 
             if(userExists != null)
             {
@@ -47,7 +47,7 @@ public class UserService {
 
 
     public UserResponseDTO getUserById(Integer id) {
-        User user = userRepository.getEmployeeById(id);
+        User user = userRepository.getUserById(id);
         if(user == null)
         {
             return null;
