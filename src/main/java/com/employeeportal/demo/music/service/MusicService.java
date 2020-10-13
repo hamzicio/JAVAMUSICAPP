@@ -102,7 +102,7 @@ public class MusicService {
         Object principal= authenticationFacade.getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.getEmployeeByUsername(username);
+            User user = userRepository.getUserByUsername(username);
             if (user == null) {
                 return null;
             }

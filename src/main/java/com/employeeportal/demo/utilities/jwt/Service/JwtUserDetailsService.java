@@ -21,7 +21,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public MyUserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userRepository.getEmployeeByUsername(username);
+        User user = userRepository.getUserByUsername(username);
 
         if (user == null) {
             throw new BadCredentialException("Could not find user");

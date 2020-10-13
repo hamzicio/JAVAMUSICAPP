@@ -34,7 +34,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("getById/{id}")
-    public ResponseEntity<UserResponseDTO>  getEmployById(@PathVariable Integer id) throws UserNotFoundException {
+    public ResponseEntity<UserResponseDTO>  getUserById(@PathVariable Integer id) throws UserNotFoundException {
         UserResponseDTO userResponseDTO = userService.getUserById(id);
 
         if(userResponseDTO ==null)
@@ -43,13 +43,13 @@ public class UserController {
         }
 
         Link getById = linkTo(methodOn(UserController.class)
-                .getEmployById(id)).withSelfRel();
+                .getUserById(id)).withSelfRel();
 
         Link deleteById= linkTo(methodOn(UserController.class)
-                .deleteUserById(id)).withSelfRel();
+                .deleteUserById(id)).withRel("deleteUser");
 
         Link getAllUsers= linkTo(methodOn(UserController.class)
-                .getAllUsers()).withRel("Get All Users");
+                .getAllUsers()).withRel("getAllUsers");
 
         userResponseDTO.add(getById);
         userResponseDTO.add(deleteById);

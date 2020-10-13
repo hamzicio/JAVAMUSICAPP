@@ -1,8 +1,6 @@
 package com.employeeportal.demo.user.dto;
 
 
-import com.employeeportal.demo.music.entity.Music;
-import com.employeeportal.demo.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserResponseDTO extends RepresentationModel<UserResponseDTO> {
     private String name;
+    private String username;
     private String address;
     private String email;
     private List<Music> music;
