@@ -21,4 +21,12 @@ public class AddMusicDTO {
     @NotNull(message = "Name is neccessary")
     private String name;
 
+    @Column(nullable = false)
+    @NotNull(message = "URL is neccessary")
+    private String url;
+
+    @Column(nullable = false)
+    @NotNull(message = "Image is neccessary")
+    private String image;
+
 }

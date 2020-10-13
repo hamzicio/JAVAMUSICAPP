@@ -1,5 +1,7 @@
 package com.employeeportal.demo.utilities.jwt.Controller;
 
+import com.employeeportal.demo.user.config.MyUserDetails;
+import com.employeeportal.demo.user.dto.UserResponseDTO;
 import com.employeeportal.demo.utilities.jwt.Service.JwtUserDetailsService;
 import com.employeeportal.demo.utilities.jwt.dto.JwtRequestDTO;
 import com.employeeportal.demo.utilities.jwt.dto.JwtResponseDTO;
@@ -10,11 +12,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
-@CrossOrigin
 public class JwtController {
 
     @Autowired
@@ -31,12 +32,18 @@ public class JwtController {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-        final UserDetails userDetails = userDetailsService
+        final MyUserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponseDTO(token));
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setName(userDetails.getUser().getName());
+        userResponseDTO.setAddress(userDetails.getUser().getAddress());
+        userResponseDTO.setEmail(userDetails.getUser().getEmail());
+        userResponseDTO.setMusic(userDetails.getUser().getMusic());
+
+        return ResponseEntity.ok(new JwtResponseDTO(token,userResponseDTO));
     }
 
     private void authenticate(String username, String password) throws Exception {

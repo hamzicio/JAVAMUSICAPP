@@ -13,6 +13,7 @@ public class UserMapper {
         userResponseDTO.setName(user.getName());
         userResponseDTO.setAddress(user.getAddress());
         userResponseDTO.setEmail(user.getEmail());
+        userResponseDTO.setMusic(user.getMusic());
 
         return userResponseDTO;
     }

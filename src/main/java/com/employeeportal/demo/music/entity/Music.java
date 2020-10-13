@@ -23,6 +23,10 @@ public class Music {
 
     private String name;
 
+    private String url;
+
+    private String image;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private User user;

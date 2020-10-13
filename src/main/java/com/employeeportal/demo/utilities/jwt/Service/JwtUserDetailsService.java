@@ -3,8 +3,9 @@ package com.employeeportal.demo.utilities.jwt.Service;
 import com.employeeportal.demo.user.entity.User;
 import com.employeeportal.demo.user.repository.UserRepository;
 import com.employeeportal.demo.user.config.MyUserDetails;
+import com.employeeportal.demo.utilities.jwt.exception.BadCredentialException;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @SneakyThrows
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public MyUserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         User user = userRepository.getEmployeeByUsername(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
+            throw new BadCredentialException("Could not find user");
         }
 
         return new MyUserDetails(user);

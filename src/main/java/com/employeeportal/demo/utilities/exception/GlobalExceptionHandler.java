@@ -4,6 +4,7 @@ import com.employeeportal.demo.music.exception.AccessDeniedException;
 import com.employeeportal.demo.music.exception.MusicDoesNotExistException;
 import com.employeeportal.demo.user.exception.AddNewUserException;
 import com.employeeportal.demo.user.exception.UserNotFoundException;
+import com.employeeportal.demo.utilities.jwt.exception.BadCredentialException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
+
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -49,6 +52,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         CustomErrorDetails customErrorDetails= new CustomErrorDetails(new Date(), ex.getMessage(),webRequest.getDescription(false));
 
         return new ResponseEntity<>(customErrorDetails,HttpStatus.CONFLICT);
+
+    }
+
+    @ExceptionHandler(BadCredentialException.class)
+    public final ResponseEntity<Object> handleBadCredentialException(BadCredentialException ex,WebRequest webRequest)
+    {
+        CustomErrorDetails customErrorDetails= new CustomErrorDetails(new Date(), ex.getMessage(),webRequest.getDescription(false));
+
+        return new ResponseEntity<>(customErrorDetails,HttpStatus.BAD_REQUEST);
 
     }
 

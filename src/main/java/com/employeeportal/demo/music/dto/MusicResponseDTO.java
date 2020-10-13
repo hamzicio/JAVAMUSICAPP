@@ -13,4 +13,6 @@ import org.springframework.hateoas.RepresentationModel;
 @AllArgsConstructor
 public class MusicResponseDTO extends RepresentationModel<MusicResponseDTO> {
     private String name;
+    private String url;
+    private String image;
 }
