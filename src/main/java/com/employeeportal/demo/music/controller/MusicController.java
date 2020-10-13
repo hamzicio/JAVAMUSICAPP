@@ -29,7 +29,7 @@ public class MusicController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("getAll")
-    public ResponseEntity<MusicWithPagingDTO> getAllMusic(@RequestParam(defaultValue = "0") Integer pageNo,
+    public ResponseEntity<MusicWithPagingDTO> getAllMusic(@RequestParam(defaultValue = "0") Integer pageNo ,
                                                           @RequestParam(defaultValue = "10") Integer pageSize)
     {
         return ResponseEntity.ok(musicService.getAllMusic(pageNo,pageSize));
