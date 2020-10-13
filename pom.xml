@@ -121,9 +121,9 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/employeeportal</url>
-                    <user>hamza</user>
-                    <password>@Demo123</password>
+                    <url>jdbc:postgresql://ec2-54-146-142-58.compute-1.amazonaws.com:5432/d33ng6fnm2c944?sslmode=require</url>
+                    <user>yrgmxrlnhkmcwv</user>
+                    <password>196581cea9d28cb4b5ef517ba30d6030f77e4bc198430fa0267d63b0a84aef07</password>
                 </configuration>
             </plugin>
         </plugins>

@@ -4,17 +4,12 @@ import com.employeeportal.demo.user.dto.AddUserDTO;
 import com.employeeportal.demo.user.dto.UserResponseDTO;
 import com.employeeportal.demo.user.entity.User;
 import com.employeeportal.demo.user.mapper.UserMapper;
-import com.employeeportal.demo.user.service.UserService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 
 
 import static org.junit.Assert.assertEquals;
 
 public class UserControllerTest {
-
-    @InjectMocks
-    private UserService userService;
 
 
     @Test

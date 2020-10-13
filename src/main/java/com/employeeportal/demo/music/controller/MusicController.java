@@ -2,6 +2,7 @@ package com.employeeportal.demo.music.controller;
 
 import com.employeeportal.demo.music.dto.AddMusicDTO;
 import com.employeeportal.demo.music.dto.MusicResponseDTO;
+import com.employeeportal.demo.music.dto.MusicWithPagingDTO;
 import com.employeeportal.demo.music.exception.AccessDeniedException;
 import com.employeeportal.demo.music.exception.MusicDoesNotExistException;
 import com.employeeportal.demo.music.service.MusicService;
@@ -28,45 +29,46 @@ public class MusicController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("getAll")
-    public ResponseEntity<List> getAllMusic()
+    public ResponseEntity<MusicWithPagingDTO> getAllMusic(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                          @RequestParam(defaultValue = "10") Integer pageSize)
     {
-        return ResponseEntity.ok(musicService.getAllMusic());
+        return ResponseEntity.ok(musicService.getAllMusic(pageNo,pageSize));
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @GetMapping("getById/{id}")
-    public ResponseEntity<MusicResponseDTO> getMusicById(@PathVariable Integer id) throws MusicDoesNotExistException, AccessDeniedException {
-        MusicResponseDTO musicResponseDTO= musicService.getMusicById(id);
-
-
-        Link deleteById= linkTo(methodOn(MusicController.class)
-                .deleteMusicById(id)).withSelfRel();
-
-        musicResponseDTO.add(deleteById);
-
-        return ResponseEntity.ok(musicResponseDTO);
+    @GetMapping("getById")
+    public ResponseEntity<MusicWithPagingDTO> getMusicById(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                         @RequestParam(defaultValue = "10") Integer pageSize) throws MusicDoesNotExistException, AccessDeniedException {
+       MusicWithPagingDTO musicWithPagingDTO= musicService.getMusicByUsername(pageNo,pageSize);
+        return ResponseEntity.ok(musicWithPagingDTO);
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     @DeleteMapping("deleteById/{id}")
-    public ResponseEntity<String> deleteMusicById(@PathVariable Integer id) throws AccessDeniedException, MusicDoesNotExistException {
-        musicService.deleteMusicById(id);
-        return ResponseEntity.ok("Music Deleted");
+    public ResponseEntity<MusicWithPagingDTO> deleteMusicById(@PathVariable Integer id) throws AccessDeniedException, MusicDoesNotExistException {
+        MusicWithPagingDTO musicWithPagingDTO=  musicService.deleteMusicById(id);
+
+        if(musicWithPagingDTO==null)
+        {
+            throw new MusicDoesNotExistException("Music Not Found");
+
+        }
+
+        return ResponseEntity.ok(musicWithPagingDTO);
     }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("addMusic")
-    public ResponseEntity<MusicResponseDTO> addMusic(@Valid @RequestBody AddMusicDTO addMusicDTO) throws UserNotFoundException
-    {
-        MusicResponseDTO musicResponseDTO=musicService.addMusic(addMusicDTO);
+    public ResponseEntity<MusicWithPagingDTO> addMusic(@Valid @RequestBody AddMusicDTO addMusicDTO) throws UserNotFoundException, MusicDoesNotExistException {
+        MusicWithPagingDTO musicWithPagingDTO=musicService.addMusic(addMusicDTO);
 
-        if(musicResponseDTO==null)
+        if(musicWithPagingDTO==null)
         {
             throw new UserNotFoundException("User does not exist");
 
         }
 
-        return ResponseEntity.ok(musicResponseDTO);
+        return ResponseEntity.ok(musicWithPagingDTO);
     }
 
 }

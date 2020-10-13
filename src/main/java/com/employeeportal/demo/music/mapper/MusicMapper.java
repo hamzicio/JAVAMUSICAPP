@@ -11,6 +11,8 @@ public class MusicMapper {
     {
         MusicResponseDTO musicResponseDTO =new MusicResponseDTO();
         musicResponseDTO.setName(music.getName());
+        musicResponseDTO.setUrl(music.getUrl());
+        musicResponseDTO.setImage(music.getImage());
 
         return musicResponseDTO;
     }
@@ -19,6 +21,8 @@ public class MusicMapper {
     {
        Music music=new Music();
        music.setName(addMusicDTO.getName());
+       music.setUrl(addMusicDTO.getUrl());
+       music.setImage(addMusicDTO.getImage());
         return music;
     }
 

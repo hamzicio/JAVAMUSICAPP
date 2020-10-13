@@ -24,6 +24,8 @@ CREATE TABLE users_roles (
 CREATE TABLE music (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
+  image VARCHAR(255),
+  url VARCHAR(255),
   user_user_id INTEGER NOT NULL,
   CONSTRAINT role_fk FOREIGN KEY (user_user_id) REFERENCES users (user_id)
 );
