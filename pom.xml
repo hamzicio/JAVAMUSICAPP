@@ -90,6 +90,12 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
         </dependency>
@@ -113,6 +119,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -121,9 +128,9 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <configuration>
-                    <url>jdbc:postgresql://ec2-54-146-142-58.compute-1.amazonaws.com:5432/d33ng6fnm2c944?sslmode=require</url>
-                    <user>yrgmxrlnhkmcwv</user>
-                    <password>196581cea9d28cb4b5ef517ba30d6030f77e4bc198430fa0267d63b0a84aef07</password>
+                    <url>${spring.datasource.url}</url>
+                    <user>${spring.datasource.user}</user>
+                    <password>${spring.datasource.password}</password>
                 </configuration>
             </plugin>
         </plugins>
